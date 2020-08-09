@@ -19,9 +19,6 @@ namespace KParser
         OperandValue,
     }
 
-
-
-
     // Represents any KFramework operation like getParentValue(R2, RSMap)
     public class Expression
     {
@@ -45,14 +42,9 @@ namespace KParser
 
             // set the current expressions token if it hasn't already been set
             if (currentExpression.expressionToken == null)
-            {
                 currentExpression.expressionToken = tokens[currentIndex];
-            }
-
             else
-            {
                 throw new Exception("Parsing error. Attempted to overwrite expression's token");
-            }
             
             // skip the expression token so we don't end up endlessly parsing the expression
             currentIndex++;
@@ -61,12 +53,8 @@ namespace KParser
             while (currentIndex < tokens.Count)
             {
                 var token = tokens[currentIndex];
-
-
-
                 if (token.kind == TokenKind.Operation)
                 {
-                    Console.WriteLine("parsing expression");
                     var newExpression = new Expression();
                     newExpression = ParseExpression(tokens, newExpression);
                     currentExpression.parameters.Add(new KeyValuePair<object, Token>(newExpression, token));
@@ -103,10 +91,6 @@ namespace KParser
 
         public void RecursiveLogExpression(Expression expression)
         {
-            if(expression.expressionToken.identifier == KToken.AndMInt)
-            {
-               // Console.ReadLine();
-            }
             Console.WriteLine("Operation: {0}", expression.expressionToken.identifier);
             foreach(var param in expression.parameters)
             {
