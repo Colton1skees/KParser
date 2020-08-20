@@ -39,6 +39,8 @@ namespace KParser
         ShiftLeftMInt,
         UValueMInt,
         AddMInt,
+        SubMInt,
+        LeftShitMInt,
 
         // Symbol Operators:
 
@@ -89,7 +91,6 @@ namespace KParser
         ZF,
         SF,
         OF,
-        
     }
 
     public enum TokenKind
@@ -98,6 +99,11 @@ namespace KParser
         /// Built in functions(e.g concatenateMInt, getParentValue)
         /// </summary>
         Operation,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        ControlFlow,
 
         /// <summary>
         /// Symbol operators(e.g |->, =>)
@@ -131,7 +137,6 @@ namespace KParser
 
         Punctuation,
         Number,
-
     }
 
     public class Token
@@ -178,6 +183,11 @@ namespace KParser
             new TokenInfo("uvalueMInt", KToken.UValueMInt, TokenKind.Operation),
             new TokenInfo("mi", KToken.Mi, TokenKind.Operation),
             new TokenInfo("addMInt", KToken.AddMInt, TokenKind.Operation),
+            new TokenInfo("subMInt", KToken.SubMInt, TokenKind.Operation),
+            new TokenInfo("lshrMInt", KToken.LeftShitMInt, TokenKind.Operation),
+            //new TokenInfo("mulMInt", KToken.SubMInt, TokenKind.Operation),
+            //new TokenInfo("svalueMInt", KToken.SubMInt, TokenKind.Operation),
+       
 
 
             // Symbols
@@ -218,7 +228,6 @@ namespace KParser
             new TokenInfo(":", KToken.Colon, TokenKind.Punctuation),
             new TokenInfo(".", KToken.Period, TokenKind.Punctuation),
         };
-
 
         private List<Token> MatchTokensInString(string text)
         {

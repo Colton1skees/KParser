@@ -58,7 +58,6 @@ namespace KParser
                     var newExpression = new Expression();
                     newExpression = ParseExpression(tokens, newExpression);
                     currentExpression.parameters.Add(new KeyValuePair<object, Token>(newExpression, token));
-                   // newExpression.expressionToken = token;
                 }
 
                 else if(token.kind == TokenKind.Number)
@@ -82,9 +81,7 @@ namespace KParser
                     return currentExpression;
                 }
                 currentIndex++;
-
             }
-
 
             return currentExpression;
         }
@@ -103,10 +100,11 @@ namespace KParser
             }
         }
 
-        public void ParseTokens(List<Token> tokens)
+        public Expression ParseTokens(List<Token> tokens)
         {
             var expression = ParseExpression(tokens, new Expression());
             RecursiveLogExpression(expression);
+            return expression;  
         }
     }
 }
