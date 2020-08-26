@@ -1,0 +1,17 @@
+NUMBER=1
+WHITESPACE=2
+LPARAM=3
+RPARAM=4
+Comma=5
+GETPARENTVALUE=6
+EXTRACTMINT=7
+MI=8
+ADDMINT=9
+' '=2
+'('=3
+')'=4
+','=5
+'getParentValue'=6
+'extractMInt'=7
+'mi'=8
+'addMInt'=9

@@ -41,6 +41,17 @@ namespace KParser
         AddMInt,
         SubMInt,
         LeftShitMInt,
+        XorMInt,
+        EqMInt,
+        GetFlag,
+        ControlFlowExpression, // temporary custom token for modeling control flow in expressions
+
+
+        // Control Flow Operation:
+        IfMInt,
+        Then,
+        Else,
+        EndIf,
 
         // Symbol Operators:
 
@@ -103,7 +114,7 @@ namespace KParser
         /// <summary>
         /// 
         /// </summary>
-        ControlFlow,
+        ControlFlowOperation,
 
         /// <summary>
         /// Symbol operators(e.g |->, =>)
@@ -153,7 +164,7 @@ namespace KParser
         }
     }
 
-    class TokenInfo
+    public class TokenInfo
     {
         public string tokenName;
         public KToken identifier;
@@ -167,11 +178,11 @@ namespace KParser
         }
     }
 
-    class KLexer
+    public class KLexer
     {
-        static List<TokenInfo> TokenInfos = new List<TokenInfo>()
+        public static List<TokenInfo> TokenInfos = new List<TokenInfo>()
         {
-            // Operations:
+            // Operations
             new TokenInfo("execinstr", KToken.ExecInstr, TokenKind.Operation),
             new TokenInfo("updateMap", KToken.UpdateMap, TokenKind.Operation),
             new TokenInfo("concatenateMInt", KToken.ConcatenateMInt, TokenKind.Operation),
@@ -185,10 +196,18 @@ namespace KParser
             new TokenInfo("addMInt", KToken.AddMInt, TokenKind.Operation),
             new TokenInfo("subMInt", KToken.SubMInt, TokenKind.Operation),
             new TokenInfo("lshrMInt", KToken.LeftShitMInt, TokenKind.Operation),
+            new TokenInfo("xorMInt", KToken.XorMInt, TokenKind.Operation),
+            new TokenInfo("eqMInt", KToken.EqMInt, TokenKind.Operation),
+            new TokenInfo("getFlag", KToken.GetFlag, TokenKind.Operation),
+            new TokenInfo("#then", KToken.Then, TokenKind.Operation),
+            new TokenInfo("#else", KToken.Else, TokenKind.Operation),
+            new TokenInfo("#ControlFlowExpression", KToken.ControlFlowExpression, TokenKind.Operation),
             //new TokenInfo("mulMInt", KToken.SubMInt, TokenKind.Operation),
             //new TokenInfo("svalueMInt", KToken.SubMInt, TokenKind.Operation),
        
-
+            // Control Flow Operations
+            new TokenInfo("#ifMInt", KToken.IfMInt, TokenKind.Operation),
+            new TokenInfo("#fi", KToken.EndIf, TokenKind.Operation),// doublecheck
 
             // Symbols
             new TokenInfo("|->", KToken.AssignExpr, TokenKind.Symbol),
@@ -216,10 +235,18 @@ namespace KParser
             new TokenInfo("Mm", KToken.Mm, TokenKind.Descriptor),
             new TokenInfo("Ymm", KToken.Ymm, TokenKind.Descriptor),
 
+            // Flags
+            new TokenInfo("\"CF\"", KToken.CF, TokenKind.Descriptor),
+            new TokenInfo("\"PF\"", KToken.PF, TokenKind.Descriptor),
+            new TokenInfo("\"AF\"", KToken.AF, TokenKind.Descriptor),
+            new TokenInfo("\"ZF\"", KToken.ZF, TokenKind.Descriptor),
+            new TokenInfo("\"SF\"", KToken.SF, TokenKind.Descriptor),
+            new TokenInfo("\"OF\"", KToken.OF, TokenKind.Descriptor),
+
             // Operand Values:
-            new TokenInfo("R1", KToken.R1, TokenKind.OperandValue),
-            new TokenInfo("R2", KToken.R2, TokenKind.OperandValue),
-            new TokenInfo("R3", KToken.R3, TokenKind.OperandValue),
+            new TokenInfo("R1", KToken.R1, TokenKind.Descriptor),
+            new TokenInfo("R2", KToken.R2, TokenKind.Descriptor),
+            new TokenInfo("R3", KToken.R3, TokenKind.Descriptor),
 
             // Punctuation
             new TokenInfo("(", KToken.LParam, TokenKind.Punctuation),
